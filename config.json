@@ -3,5 +3,5 @@
   "port": 5007,
   "mongo_host": "localhost",
   "mongo_port": 27017,
-  "mongo_db": "mini_amazon"
+  "mongo_db": "ni_amazon"
 }

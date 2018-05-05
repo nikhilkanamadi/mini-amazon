@@ -1,11 +1,13 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import json
 
 
 class UserModel:
     def __init__(self):
-        client = MongoClient('localhost', 27017)
-        self.db = client.mini_amazon
+        config = json.load(open("./config.json", "r"))
+        client = MongoClient(config["host"], config["port"])
+        self.db = client[config["mongo_db"]]
 
     def add_new_user(self, name, email, username, password):
         user = {

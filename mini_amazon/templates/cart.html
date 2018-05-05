@@ -1,0 +1,30 @@
+<h1>{{ name }}'s shopping cart</h1>
+<h3>You have {{ products|length }} products in your cart</h3>
+<hr>
+
+{% for product in products %}
+    <h3>{{ product.name }}</h3>
+    Price : <i>{{ product.price }}</i><br>
+    <form action="/api/cart" method="POST">
+        <input type="text" name="op_type" value="remove" hidden>
+        <input type="text" name="product_id" value="{{ product._id }}" hidden>
+        <input type="text" name="user_id" value="{{ user_id }}" hidden>
+        <input type="text" name="output_type" value="html" hidden>
+        <input type="submit" value="Remove from cart">
+    </form>
+    <hr>
+{% endfor %}
+
+<h3>Total : {{ total }}</h3>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_cart">
+    <input type="hidden" name="upload" value="1">
+    <input type="hidden" name="business" value="sunil3590@gmail.com">
+    <input type="hidden" name="currency_code" value="INR">
+    {% for product in products %}
+        <input type="hidden" name='{{ "item_name_" ~ loop.index }}' value="{{ product.name }}">
+        <input type="hidden" name='{{ "amount_" ~ loop.index }}' value="{{ product.price }}">
+    {% endfor %}
+    <button type="submit">Check out with PayPal</button>
+</form>

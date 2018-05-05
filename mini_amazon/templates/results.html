@@ -1,0 +1,37 @@
+<h1>{{ results|length }} results for "{{ query }}"</h1>
+
+{% for result in results%}
+    <div>
+        <h3>{{ result.name }}</h3><br>
+        Description : <b>{{ result.description }}</b><br>
+        Price : <i>{{ result.price }}</i><br>
+
+        <form action="/api/cart" method="POST">
+            <input type="text" name="op_type" value="add" hidden>
+            <input type="text" name="user_id" value="{{ user_id }}" hidden>
+            <input type="text" name="product_id" value="{{ result._id }}" hidden><br>
+            <input type="submit" value="Add to cart">
+        </form>
+
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <!-- Identify your business so that you can collect the payments. -->
+            <input type="hidden" name="business" value="sunil3590@gmail.com">
+
+            <!-- Specify a Buy Now button. -->
+            <input type="hidden" name="cmd" value="_xclick">
+
+            <!-- Specify details about the item that buyers will purchase. -->
+            <input type="hidden" name="item_name" value="{{ result.name }}">
+            <input type="hidden" name="amount" value="{{ result.price }}">
+            <input type="hidden" name="currency_code" value="INR">
+
+            <!-- Display the payment button. -->
+            <input type="image" name="submit" border="0"
+            src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+            alt="Buy Now">
+            <img alt="" border="0" width="1" height="1"
+            src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+        </form>
+    </div>
+    <hr>
+{% endfor %}

@@ -1,0 +1,17 @@
+<h1>Welcome, {{ name }}</h1>
+
+<form action="/api/cart" method="POST">
+    <input type="text" name="op_type" value="get" hidden>
+    <input type="text" name="user_id" value="{{ user_id }}" hidden>
+    <input type="text" name="output_type" value="html" hidden>
+    <input type="submit" value="View cart">
+</form>
+
+<h3>Search</h3>
+<form action="/api/product" method="GET">
+    <input type="text" name="user_id" value="{{ user_id }}" hidden>
+    <input type="text" name="output_type" value="html" hidden>
+    Name:<br>
+    <input type="text" name="name" required><br>
+    <input type="submit" value="Search">
+</form>

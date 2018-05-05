@@ -6,7 +6,7 @@ import json
 class UserModel:
     def __init__(self):
         config = json.load(open("./config.json", "r"))
-        client = MongoClient(config["host"], config["port"])
+        client = MongoClient(config["mongo_host"], config["mongo_port"])
         self.db = client[config["mongo_db"]]
 
     def add_new_user(self, name, email, username, password):

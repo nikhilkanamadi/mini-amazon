@@ -6,7 +6,7 @@ import json
 class ProductModel:
     def __init__(self):
         config = json.load(open("./config.json", "r"))
-        client = MongoClient(config["host"], config["port"])
+        client = MongoClient(config["mongo_host"], config["mongo_port"])
         self.db = client[config["mongo_db"]]
 
     def save(self, product):
